@@ -1,13 +1,13 @@
 ![CI](https://github.com/prp0x80/yolov3-tf2/actions/workflows/ci.yml/badge.svg?branch=develop?event=push)
 
-# YOLOv3-TF2.x
+# YOLOv3-TF
 
 YOLOv3 implementation in TensorFlow 2.x
 
 ## Installation
 
 ```
-pip install yolov3-tf2
+pip install yolov3-tf
 ```
 
 > Depends on tensorflow >=2.3.0 <=2.9.1
