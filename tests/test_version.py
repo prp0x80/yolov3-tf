@@ -1,4 +1,4 @@
-from yolov3_tf2 import __version__
+from yolov3_tf import __version__
 
 
 def test_version():
