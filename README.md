@@ -1,3 +1,5 @@
+![CI](https://github.com/prp0x80/yolov3-tf2/actions/workflows/ci.yml/badge.svg?branch=develop?event=push)
+
 # YOLOv3-TF2.x
 
 YOLOv3 implementation in TensorFlow 2.x
