@@ -1,4 +1,4 @@
-name: yolov3-tf2-ci
+name: yolov3-tf-ci
 on:
   push:
     tags:

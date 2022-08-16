@@ -1,4 +1,4 @@
-name: yolov3-tf2-cd
+name: yolov3-tf-cd
 on:
   push:
     tags:
