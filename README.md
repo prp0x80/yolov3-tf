@@ -25,7 +25,7 @@ The package consists of three core modules -
 The `dataset.py` module is for loading and transforming the tfrecords for object detection. The examples in the input tfrecords must match the parsing schema.
 
 ```python
-import yolov3_tf2.dataset as dataset
+import yolov3_tf.dataset as dataset
 train_dataset = dataset.load_tfrecord_dataset(tfrecords_path)
 train_dataset = train_dataset.batch(batch_size)
 train_dataset = train_dataset.map(
@@ -41,7 +41,7 @@ train_dataset = train_dataset.map(
 The `models.py` module consists of implementation of two YOLOv3 and YOLOv3 tiny in Tesnsorflow.
 
 ```python
-from yolov3_tf2.models import YoloV3, YoloV3Tiny
+from yolov3_tf.models import YoloV3, YoloV3Tiny
 model = YoloV3(image_dim = 416, training=True, classes=10)
 ```
 
@@ -51,8 +51,8 @@ The `utils.py` module provides some common functions for training YOLOv3 model, 
 
 ```python
 # convert weights 
-from yolov3_tf2.models import YoloV3, YoloV3Tiny
-from yolov3_tf2 import utils
+from yolov3_tf.models import YoloV3, YoloV3Tiny
+from yolov3_tf import utils
 
 yolo = YoloV3()
 utils.load_darknet_weights(yolo, weights_path, is_tiny=False)
