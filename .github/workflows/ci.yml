@@ -33,5 +33,11 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Code Quality
         run: poetry run black . --check
-      - name: Tests suite
-        run: pytest -v
+      #----------------------------------------------
+      #              run test suite
+      #----------------------------------------------
+      - name: Run tests
+        run: |
+          source .venv/bin/activate
+          pytest tests/
+          coverage report
