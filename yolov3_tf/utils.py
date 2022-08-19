@@ -170,8 +170,8 @@ def draw_labels(x, y, class_names):
 def freeze_all(model, frozen=True):
     model.trainable = not frozen
     if isinstance(model, tf.keras.Model):
-        for l in model.layers:
-            freeze_all(l, frozen)
+        for layer in model.layers:
+            freeze_all(layer, frozen)
 
 
 def int_feature(
