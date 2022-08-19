@@ -3,7 +3,7 @@ line-length = 79
 
 [tool.poetry]
 name = "yolov3-tf"
-version = "0.1.1"
+version = "0.1.2"
 description = "YOLOv3 implementation in TensorFlow 2.x"
 authors = ["Prashant Patel <prashant.patel@kainos.com>"]
 license = "MIT"
