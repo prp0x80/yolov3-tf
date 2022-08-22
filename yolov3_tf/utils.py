@@ -170,8 +170,8 @@ def draw_labels(x, y, class_names):
 def freeze_all(model, frozen=True):
     model.trainable = not frozen
     if isinstance(model, tf.keras.Model):
-        for l in model.layers:
-            freeze_all(l, frozen)
+        for layer in model.layers:
+            freeze_all(layer, frozen)
 
 
 def int_feature(
@@ -204,3 +204,11 @@ def string_feature(
     if fixed_len:
         return tf.io.FixedLenFeature([], dtype=tf.string)
     return tf.io.VarLenFeature(dtype=tf.string)
+
+
+def flatten_list(x: list) -> list:
+    return [item for sublist in x for item in sublist]
+
+
+def to_dense(x: tf.Tensor) -> np.ndarray:
+    return tf.sparse.to_dense(x).numpy()
