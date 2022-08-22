@@ -204,3 +204,11 @@ def string_feature(
     if fixed_len:
         return tf.io.FixedLenFeature([], dtype=tf.string)
     return tf.io.VarLenFeature(dtype=tf.string)
+
+
+def flatten_list(x: list) -> list:
+    return [item for sublist in x for item in sublist]
+
+
+def to_dense(x: tf.Tensor) -> np.ndarray:
+    return tf.sparse.to_dense(x).numpy()

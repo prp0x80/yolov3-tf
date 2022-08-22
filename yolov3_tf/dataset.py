@@ -84,6 +84,7 @@ def transform_images(x_train, size):
 
 
 PARSING_CONFIG = {
+    "image/id": int_feature(),
     "image/filename": string_feature(),
     "image/encoded": string_feature(),
     "image/width": int_feature(),
