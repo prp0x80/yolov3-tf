@@ -1,8 +1,5 @@
 import numpy as np
 import pandas as pd
-import pandera as pa
-from pandera.typing import Series
-
 
 def compute_overlap(boxes, query_boxes):
     N = boxes.shape[0]
@@ -121,27 +118,6 @@ def get_detections(table):
     return res
 
 
-class GroundTruthSchema(pa.SchemaModel):
-    image_filename: Series[str] = pa.Field(check_name=True, nullable=False)
-    class_name: Series[str] = pa.Field(check_name=True, nullable=False)
-    x_min: Series[float] = pa.Field(check_name=True, nullable=False)
-    y_min: Series[float] = pa.Field(check_name=True, nullable=False)
-    x_max: Series[float] = pa.Field(check_name=True, nullable=False)
-    y_max: Series[float] = pa.Field(check_name=True, nullable=False)
-
-
-class DetectionsSchema(pa.SchemaModel):
-    image_filename: Series[str] = pa.Field(check_name=True, nullable=False)
-    class_name: Series[str] = pa.Field(check_name=True, nullable=False)
-    confidence_score: Series[float] = pa.Field(
-        gt=0, check_name=True, nullable=False
-    )
-    x_min: Series[float] = pa.Field(check_name=True, nullable=False)
-    y_min: Series[float] = pa.Field(check_name=True, nullable=False)
-    x_max: Series[float] = pa.Field(check_name=True, nullable=False)
-    y_max: Series[float] = pa.Field(check_name=True, nullable=False)
-
-
 def mean_average_precision_for_boxes(
     ground_truth_dataframe: pd.DataFrame,
     detections_dataframe: pd.DataFrame,
@@ -150,9 +126,6 @@ def mean_average_precision_for_boxes(
     exclude_not_in_annotations=False,
     verbose=True,
 ):
-    GroundTruthSchema.validate(ground_truth_dataframe)
-    DetectionsSchema.validate(detections_dataframe)
-
     valid = ground_truth_dataframe[
         ["image_filename", "class_name", "x_min", "x_max", "y_min", "y_max"]
     ]
