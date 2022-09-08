@@ -1,22 +1,11 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras import Model
-from tensorflow.keras.layers import (
-    Add,
-    BatchNormalization,
-    Concatenate,
-    Conv2D,
-    Input,
-    Lambda,
-    LeakyReLU,
-    MaxPool2D,
-    UpSampling2D,
-    ZeroPadding2D,
-)
-from tensorflow.keras.losses import (
-    binary_crossentropy,
-    sparse_categorical_crossentropy,
-)
+from tensorflow.keras.layers import (Add, BatchNormalization, Concatenate,
+                                     Conv2D, Input, Lambda, LeakyReLU,
+                                     MaxPool2D, UpSampling2D, ZeroPadding2D)
+from tensorflow.keras.losses import (binary_crossentropy,
+                                     sparse_categorical_crossentropy)
 from tensorflow.keras.regularizers import l2
 
 from .utils import broadcast_iou
@@ -38,6 +27,7 @@ yolo_anchors = (
     )
     / 416
 )
+
 yolo_anchor_masks = np.array([[6, 7, 8], [3, 4, 5], [0, 1, 2]])
 
 yolo_tiny_anchors = (
@@ -47,6 +37,7 @@ yolo_tiny_anchors = (
     )
     / 416
 )
+
 yolo_tiny_anchor_masks = np.array([[3, 4, 5], [0, 1, 2]])
 
 
