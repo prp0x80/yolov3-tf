@@ -4,9 +4,11 @@ from typing import List, Union
 import cv2
 import numpy as np
 import tensorflow as tf
-from tensorflow.python.ops.parsing_config import (FixedLenFeature,
-                                                  FixedLenSequenceFeature,
-                                                  VarLenFeature)
+from tensorflow.python.ops.parsing_config import (
+    FixedLenFeature,
+    FixedLenSequenceFeature,
+    VarLenFeature,
+)
 
 YOLOV3_LAYER_LIST = [
     "yolo_darknet",
