@@ -1,12 +1,14 @@
 import logging
-from typing import Union
+from typing import List, Union
 
 import cv2
 import numpy as np
 import tensorflow as tf
-from tensorflow.python.ops.parsing_config import (FixedLenFeature,
-                                                  FixedLenSequenceFeature,
-                                                  VarLenFeature)
+from tensorflow.python.ops.parsing_config import (
+    FixedLenFeature,
+    FixedLenSequenceFeature,
+    VarLenFeature,
+)
 
 YOLOV3_LAYER_LIST = [
     "yolo_darknet",
@@ -210,3 +212,88 @@ def flatten_list(x: list) -> list:
 
 def to_dense(x: tf.Tensor) -> np.ndarray:
     return tf.sparse.to_dense(x).numpy()
+
+
+def read_content(path: str) -> bytes:
+    """
+    Reads content as bytes.
+
+    Args:
+        path: content file path.
+
+    Returns:
+        Content in file as bytes.
+    """
+    with open(path, "rb") as stream:
+        contents = stream.read()
+    return contents
+
+
+def encode_example(
+    id_: int,
+    img_path: str,
+    width: List[int],
+    height: List[int],
+    xmin: List[float],
+    ymin: List[float],
+    xmax: List[float],
+    ymax: List[float],
+    labels: List[int],
+) -> tf.train.Example:
+    """
+    Encode a single image path with all associated annotations as an Example.
+
+    Args:
+        id_: Unique identifier for each image.
+        path: Path to the image.
+        width: List of widths of bounding boxes.
+        height: List of heights of bounding boxes.
+        xmin: List of co-ordinate(x) top-left of the bounding boxes.
+        ymin: List of co-ordinate(y) top-left of the bounding boxes.
+        xmax: List of co-ordinate(x) bottom-right of the bounding boxes.
+        ymax: List of co-ordinate(y) bottom-right of the bounding boxes.
+        labels: List of labels of bounding boxes.
+
+    Returns:
+        Example containing all input data.
+    """
+    return tf.train.Example(
+        features=tf.train.Features(
+            feature={
+                "image/id": tf.train.Feature(
+                    int64_list=tf.train.Int64List(value=id_)
+                ),
+                "image/filename": tf.train.Feature(
+                    bytes_list=tf.train.BytesList(
+                        value=[str(img_path.split("/")[-1]).encode("utf-8")]
+                    )
+                ),
+                "image/encoded": tf.train.Feature(
+                    bytes_list=tf.train.BytesList(
+                        value=[read_content(img_path)]
+                    )
+                ),
+                "image/width": tf.train.Feature(
+                    int64_list=tf.train.Int64List(value=width)
+                ),
+                "image/height": tf.train.Feature(
+                    int64_list=tf.train.Int64List(value=height)
+                ),
+                "image/bbox/xmin": tf.train.Feature(
+                    float_list=tf.train.FloatList(value=xmin)
+                ),
+                "image/bbox/ymin": tf.train.Feature(
+                    float_list=tf.train.FloatList(value=ymin)
+                ),
+                "image/bbox/xmax": tf.train.Feature(
+                    float_list=tf.train.FloatList(value=xmax)
+                ),
+                "image/bbox/ymax": tf.train.Feature(
+                    float_list=tf.train.FloatList(value=ymax)
+                ),
+                "image/bbox/labels": tf.train.Feature(
+                    int64_list=tf.train.Int64List(value=labels)
+                ),
+            }
+        )
+    )
