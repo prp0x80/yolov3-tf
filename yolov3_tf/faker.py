@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 from PIL import Image
-from utils import encode_example
+from .utils import encode_example
 
 
 def fake_image(image_size):
