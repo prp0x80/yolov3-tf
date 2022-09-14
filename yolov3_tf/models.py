@@ -38,6 +38,7 @@ yolo_anchors = (
     )
     / 416
 )
+
 yolo_anchor_masks = np.array([[6, 7, 8], [3, 4, 5], [0, 1, 2]])
 
 yolo_tiny_anchors = (
@@ -47,6 +48,7 @@ yolo_tiny_anchors = (
     )
     / 416
 )
+
 yolo_tiny_anchor_masks = np.array([[3, 4, 5], [0, 1, 2]])
 
 
